@@ -14,6 +14,7 @@ modifiers_post=["ˈ","̞","̃","̻","̺","̪","ˤ","ˠ","ʲ","ʷ","̰","’","̤
 vowels="iyɪʏeøɛœæaɶɨʉəɐɑɒɔʌoɤuɯʊ"
 
 ##Creació de taula de paraules a partir de llistes de Swadesh
+##Create word table from Swadesh lists
 def filetotab(file): 
     fi=open(file,"r",encoding="utf8")
     lines=fi.readlines()
@@ -28,6 +29,7 @@ def filetotab(file):
     return tab_swa
 
 ##Creació de taula de trets fonològics
+##Create phonological feature table
 def features():
     fi=open("features.txt","r",encoding="utf8")
     lines=fi.readlines()
@@ -41,6 +43,7 @@ def features():
 
 
 ##Creació de taula d'operadors (diacrítics)
+##Create operator table (diacritics)
 def operators():
     fi=open("operators.txt","r",encoding="utf8")
     lines=fi.readlines()
@@ -53,7 +56,8 @@ def operators():
                 tab_ope[i][j]=float(tab_ope[i][j]) 
     return tab_ope
 
-##Divisió de la paraula gràfica en AFI en grups de caràcters que corresponent cada un a un so.
+##Divisió de la paraula gràfica en AFI en grups de caràcters que corresponen cada un a un so.
+##Division of the IPA transcription into groups of characters referring to one sound each. 
 def segment(word): 
     word=word.replace("ɫ","lˠ")
     charlist=list(word)
@@ -81,6 +85,7 @@ def segment(word):
 
 
 ##Obtenir vector de trets per al segment introduït
+##Obtain feature vector for the character group 
 def get_features(letters): 
     letlist=list(letters)
     if letlist[0]!="͡":
@@ -106,6 +111,7 @@ def get_features(letters):
     return feature
 
 ##Càlcul de distància vectorial entre trets
+##Distance between features
 def dist_feat(phon1,phon2): 
     dist=0.0
     feat1=get_features(phon1)
@@ -117,6 +123,7 @@ def dist_feat(phon1,phon2):
     return dist
     
 ##Càlcul de distància entre paraules amb fórmula pròpia
+##Distance between words using self-created formula.
 def dist_word(word1,word2):
     dist=0.0
     distaux=0.0
@@ -140,6 +147,7 @@ def dist_word(word1,word2):
     return dist
 
 ##Càlcul de distància entre llengües a partir de mitjana de distància de paraules
+##Distance between languages using average distance between words
 def dist_lang(lang_ind_1,lang_ind_2):
     dist=0.0
     null=0
@@ -152,6 +160,7 @@ def dist_lang(lang_ind_1,lang_ind_2):
     return dist
 
 ##Creació de taula amb distàncies entre llengües
+##Create a table with the distances between languages
 def dist_tab(file):
     global tab_swa
     tab_swa=filetotab(file)
@@ -168,7 +177,8 @@ def dist_tab(file):
     return(tab_dist)
         
     
-##Creació de matrius de trets auxiliars de referència        
+##Creació de matrius de trets auxiliars de referència
+##Create feate
 tab_feat=features()
 tab_ope=operators()
 phonlist=[]
@@ -177,9 +187,7 @@ for i in range(len(tab_feat)):
 
 
 ##Formació de taules de distàncies
-
-        
-##DISTÀNCIA
+##Distance-table plots
 tab_swa=filetotab("swadesh_rom_eus.txt")  ##Introduir fitxer
 data= dist_tab("swadesh_rom_eus.txt")     ##Introduir fitxer
 data_array = np.array(data)
@@ -190,7 +198,7 @@ sm = ScalarMappable(cmap=cmap, norm=norm)
 
 fig, ax = plt.subplots(figsize=(6,4))
 ax.axis('off')
-##Introduir noms de llengües
+##Introduir noms de llengües / Insert language names
 table = ax.table(cellText=data, cellLoc='center', loc='center', colLabels=["Francès","Català","Castellà","Portuguès","Basc"],rowLabels=["Francès","Català","Castellà","Portuguès","Basc"])
 for (i, j), cell in table.get_celld().items():
     cell.set_height(0.1)
@@ -219,6 +227,7 @@ plt.show()
 
     
     
+
 
 
 
