@@ -188,8 +188,8 @@ for i in range(len(tab_feat)):
 
 ##Formació de taules de distàncies
 ##Distance-table plots
-tab_swa=filetotab("swadesh_rom_eus.txt")  ##Introduir fitxer
-data= dist_tab("swadesh_rom_eus.txt")     ##Introduir fitxer
+tab_swa=filetotab("example.txt")  
+data= dist_tab("example.txt")     
 data_array = np.array(data)
 
 cmap = plt.get_cmap("RdYlGn_r")
@@ -227,6 +227,7 @@ plt.show()
 
     
     
+
 
 
 
